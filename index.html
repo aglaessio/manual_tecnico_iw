@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico - Ingressos Web</title>
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-light: #4d94ff;
+            --secondary: #00aaff;
+            --dark: #003366;
+            --light: #f8fbff;
+            --accent: #ff6600;
+            --text: #2d3748;
+            --text-light: #4a5568;
+            --gray: #e2e8f0;
+            --gray-light: #f7fafc;
+            --danger: #e53e3e;
+            --success: #38a169;
+            --warning: #dd6b20;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+        }
+        
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            src: url(https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiA.woff2) format('woff2');
+        }
+        
+        body {
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--light);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        /* HEADER STYLES */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            max-width: 180px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        .header-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.9;
+            flex-wrap: wrap;
+        }
+        
+        /* MAIN CONTENT STYLES */
+        .document-body {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 40px 0 25px;
+            font-size: 22px;
+            font-weight: 600;
+            position: relative;
+            padding-left: 16px;
+        }
+        
+        h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 6px;
+            height: 20px;
+            width: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 30px 0 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        h4 {
+            color: var(--primary);
+            margin: 25px 0 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        p, ul, ol, table {
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+        
+        ul, ol {
+            padding-left: 24px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        ul li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -18px;
+        }
+        
+        ol {
+            counter-reset: item;
+        }
+        
+        ol li {
+            counter-increment: item;
+        }
+        
+        ol li::before {
+            content: counter(item) ".";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -18px;
+        }
+        
+        /* COMPONENT STYLES */
+        .section-group {
+            background: var(--gray-light);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .module {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .module:last-child {
+            border-bottom: none;
+        }
+        
+        .module-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .checklist-item::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .prohibited {
+            color: var(--danger);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .prohibited::before {
+            content: "✗";
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        
+        .important {
+            background-color: #ebf8ff;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid var(--secondary);
+            font-size: 15px;
+        }
+        
+        .important strong {
+            color: var(--dark);
+        }
+        
+        .warning {
+            background-color: #fffaf0;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid var(--warning);
+            font-size: 15px;
+        }
+        
+        .example-box {
+            background-color: white;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .flow-chart {
+            background-color: var(--gray-light);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        /* TABLE STYLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--gray-light);
+        }
+        
+        /* ATTACHMENTS & FOOTER */
+        .attachments {
+            margin-top: 40px;
+            background: var(--gray-light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .attachments a {
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .attachments a::before {
+            content: "→";
+            margin-right: 6px;
+            color: var(--accent);
+        }
+        
+        .attachments a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: var(--dark);
+            color: white;
+            font-size: 14px;
+        }
+        
+        .print-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: white;
+            color: var(--dark);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .print-btn:hover {
+            background-color: var(--gray-light);
+            transform: translateY(-1px);
+        }
+        
+        /* RESPONSIVE STYLES */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .document-body {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .header-info {
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://ingressosweb.com.br/img/logo-dark.640276db.png" alt="Ingressos Web" class="logo">
+            <h1>MANUAL TÉCNICO</h1>
+            <div class="header-info">
+                <div><strong>Departamento:</strong> Operações Técnicas</div>
+                <div><strong>Versão:</strong> 1.0</div>
+                <div><strong>Atualização:</strong> <span id="current-date"></span></div>
+            </div>
+        </header>
+        
+        <div class="document-body">
+            <!-- 1. PROCEDIMENTOS DE CHEGADA AO EVENTO -->
+            <div class="section-group">
+                <h2>1. PROCEDIMENTOS DE CHEGADA AO EVENTO</h2>
+                <div class="checklist-item">Ao chegar no local do evento:</div>
+                
+                <h4>Localizar o responsável pelo evento:</h4>
+                <ul>
+                    <li>Apresentar-se formalmente com crachá visível</li>
+                    <li>Confirmar contato telefônico para emergências</li>
+                </ul>
+                
+                <h4>Verificar e confirmar todas as informações operacionais:</h4>
+                <ul>
+                    <li>Horário de abertura da bilheteria e portarias</li>
+                    <li>Quantidade exata de equipamentos para venda e validação</li>
+                    <li>Pontos de internet disponíveis e qualidade da conexão</li>
+                    <li>Locais exatos de instalação dos PDVs e validadores</li>
+                </ul>
+                
+                <h4>Configuração dos equipamentos:</h4>
+                <ul>
+                    <li>Instalar e configurar todos os dispositivos</li>
+                    <li>Testar conexão com a plataforma Ingressos Web</li>
+                    <li>Realizar testes completos de emissão e validação</li>
+                </ul>
+                
+                <div class="important">
+                    <strong>IMPORTANTE:</strong> Documentar qualquer divergência em relação ao planejado e comunicar imediatamente ao coordenador técnico.
+                </div>
+            </div>
+            
+            <!-- 2. COMPORTAMENTO PROFISSIONAL -->
+            <div class="section-group">
+                <h2>2. COMPORTAMENTO PROFISSIONAL</h2>
+                
+                <h3>POSTURA DURANTE O EVENTO</h3>
+                <ul>
+                    <li>Manter comunicação clara e objetiva com todos os envolvidos</li>
+                    <li>Demonstrar empatia e cortesia no atendimento</li>
+                    <li>Ser proativo na identificação e solução de problemas</li>
+                    <li>Manter postura profissional em todas as situações</li>
+                </ul>
+                
+                <h3>ATITUDES PROIBIDAS:</h3>
+                <div class="prohibited">Consumir bebidas alcoólicas durante o evento</div>
+                <div class="prohibited">Portar ingressos do evento sem autorização</div>
+                <div class="prohibited">Manter-se ocioso na bilheteria ou áreas de trabalho</div>
+                <div class="prohibited">Envolver-se em situações fora das responsabilidades da empresa</div>
+                <div class="prohibited">Expor-se publicamente em nome da empresa sem autorização</div>
+            </div>
+            
+            <!-- 3. PROCEDIMENTOS TÉCNICOS -->
+            <div class="section-group">
+                <h2>3. PROCEDIMENTOS TÉCNICOS</h2>
+                
+                <div class="card">
+                    <h3>3.1. Plataforma Ingressos Web</h3>
+                    <ul>
+                        <li>Sistema responsável pelo controle de todas as operações</li>
+                        <li>Interface gráfica uniforme e totalmente sugestiva</li>
+                        <li>Permite gerenciar à distância todo o controle de vendas e acesso</li>
+                    </ul>
+                </div>
+                
+                <h3>3.2. Homologação de PDV</h3>
+                <ol>
+                    <li>Confirmar celular com WhatsApp da loja para pré-cadastro</li>
+                    <li>Verificar internet disponível e sem bloqueios</li>
+                    <li>Agendar horário para instalação e treinamento</li>
+                </ol>
+                
+                <div class="important">
+                    <strong>Configuração de Rede:</strong> Em caso de Firewall, liberar o domínio: "https://ticketme-api.herokuapp.com"
+                </div>
+            </div>
+            
+            <!-- 4. ENCERRAMENTO DO EVENTO -->
+            <div class="section-group">
+                <h2>4. ENCERRAMENTO DO EVENTO</h2>
+                <div class="checklist-item">Procedimentos pós-evento:</div>
+                
+                <h4>Desmontagem e organização:</h4>
+                <ul>
+                    <li>Desligar corretamente todos os equipamentos</li>
+                    <li>Colocar dispositivos para recarregar</li>
+                    <li>Armazenar em local seguro</li>
+                </ul>
+                
+                <h4>Devolução dos equipamentos:</h4>
+                <ul>
+                    <li>Conferir lista completa de materiais</li>
+                    <li>Garantir que todos os dispositivos estejam deslogados</li>
+                    <li>Entregar ao responsável pelo armazenamento</li>
+                </ul>
+                
+                <h4>Relatório Técnico Pós-Evento:</h4>
+                <ul>
+                    <li>Preencher completamente o formulário online</li>
+                    <li>Incluir todas as ocorrências relevantes</li>
+                    <li>Enviar em até 24h após o término do evento</li>
+                </ul>
+            </div>
+            
+            <!-- NÍVEIS TÉCNICOS -->
+            <h2>NÍVEIS TÉCNICOS</h2>
+            
+            <div class="card">
+                <h3>GTE – Gestor Técnico de Eventos</h3>
+                <p>Os Gestores Técnicos (GTEs) são os técnicos Ingressos Web que detêm todo o conhecimento necessário e a visão gerencial para a realização de eventos.</p>
+                <p><strong>Habilidades requeridas:</strong></p>
+                <ul>
+                    <li>Domínio da Plataforma Ingressos Web e seus subsistemas</li>
+                    <li>Gestão de redes e servidores</li>
+                    <li>Conhecimento em Sistemas Operacionais (Windows, Linux e Mac)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>TE – Técnicos de Eventos</h3>
+                <p>Técnicos das categorias Sênior, Pleno e Júnior que detêm o conhecimento necessário para realização de eventos.</p>
+                <p><strong>Habilidades requeridas:</strong></p>
+                <ul>
+                    <li>Conhecimento da Plataforma Ingressos Web e seus subsistemas</li>
+                    <li>Conhecimento básico em redes e servidores</li>
+                    <li>Noções de Sistemas Operacionais (Windows, Linux e Mac)</li>
+                </ul>
+            </div>
+            
+            <h2>VESTUÁRIO E HIGIENE PESSOAL</h2>
+            <div class="card">
+                <p><strong>Obrigatório:</strong></p>
+                <ul>
+                    <li>Uso de crachá em local visível</li>
+                    <li>Camisa da empresa</li>
+                    <li>Calça jeans ou sarja</li>
+                    <li>Tênis, sapatênis ou bota de segurança quando necessário</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Proibido:</strong></p>
+                <div class="prohibited">Uso de uniforme em bares e momentos de lazer</div>
+                <div class="prohibited">Uso de uniforme portando bebidas alcoólicas</div>
+                <div class="prohibited">Uso do crachá para benefício próprio</div>
+            </div>
+            
+            <!-- TREINAMENTO TÉCNICO -->
+            <h2>TREINAMENTO TÉCNICO E RELACIONAMENTO COM CLIENTES</h2>
+            
+            <!-- MÓDULO 1 -->
+            <div class="module">
+                <div class="module-title">MÓDULO 1: INTRODUÇÃO AO SISTEMA</div>
+                
+                <h3>Visão geral da plataforma Ingressos Web</h3>
+                <p>Sistema completo para gestão de eventos com:</p>
+                <div class="checklist-item">Venda online e física de ingressos</div>
+                <div class="checklist-item">Controle de acesso em tempo real</div>
+                <div class="checklist-item">Relatórios financeiros e de público</div>
+                             
+                <h3>Componentes principais do sistema</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Modelo/Ferramenta</th>
+                        <th>Função</th>
+                    </tr>
+                    <tr>
+                        <td>Validador</td>
+                        <td>COLETOR DE DADOS L2s PRO SUNMI RFID / SMARTPHONE MOTOROLA MOTO G14 4G 128GB</td>
+                        <td>Leitura de QR Code e RFID</td>
+                    </tr>
+                    <tr>
+                        <td>Smart POS</td>
+                        <td>SUNMI_P2 / PAX_A930</td>
+                        <td>Emissão de ingressos físicos</td>
+                    </tr>
+                    <tr>
+                        <td>Software</td>
+                        <td>Ingressos Web</td>
+                        <td>Gestão centralizada</td>
+                    </tr>
+                </table>
+                
+                <h3>Fluxo de trabalho padrão</h3>
+                <div class="flow-chart">
+                    <strong>1. PRÉ-EVENTO (72h antes)</strong><br>
+                    - Separação dos Equipamentos para realização do Evento<br>
+                    - Checagem informações pertinentes ao evento, recursos para deslocamento<br>
+                    - Teste de equipamentos<br><br>
+                    
+                    <strong>2. DIA DO EVENTO</strong><br>
+                    - Recomendado chegar 3h antes<br>
+                    - Configuração dos equipamentos de Venda e Validação<br>
+                    - Testes de Venda e Validação<br><br>
+                    
+                    <strong>3. PÓS-EVENTO (24h após)</strong><br>
+                    - Relatório técnico Pós-Evento<br>
+                    - Inventário<br>
+                    - Entrega de Notas à Empresa<br>
+                </div>
+                
+                <h3>Terminologia técnica essencial</h3>
+                <div class="checklist-item"><strong>PDV:</strong> Ponto de Venda (Smart POS + Carregador + Bobina Térmica)</div>
+                <div class="checklist-item"><strong>SR:</strong> Solicitação de Recursos (Realizado pelo GTE)</div>
+                <div class="checklist-item"><strong>GTE:</strong> Gestor Técnico de Eventos</div>
+            </div>
+            
+            <!-- MÓDULO 2 -->
+            <div class="module">
+                <div class="module-title">MÓDULO 2: OPERAÇÕES DE BILHETERIA</div>
+                
+                <h3>Configuração de pontos de venda</h3>
+                <div class="checklist-item">Conectar o Smart POS à rede Wi-Fi</div>
+                <div class="checklist-item">Abrir aplicativo e configurar conforme a necessidade do Evento</div>
+                <div class="checklist-item">Checar conexão, Ingressos e atualizações pendentes</div>
+                
+                <h3>Processos de emissão de ingressos</h3>
+                <ol>
+                    <li>Selecionar evento</li>
+                    <li>Escolher tipo de ingresso (Ex.: Inteira/Meia)</li>
+                    <li>Selecionar e Processar pagamento</li>
+                    <li>Emitir ingresso físico/digital</li>
+                </ol>
+                
+                <div class="warning">
+                    <strong>Atenção:</strong> Sempre verificar o valor cobrado antes de emitir o ingresso.
+                </div>
+                
+                <h3>Gestão de formas de pagamento</h3>
+                <h4>Exemplo:</h4>
+                <table>
+                    <tr>
+                        <th>Método</th>
+                        <th>Taxa</th>
+                        <th>Disponibilidade</th>
+                    </tr>
+                    <tr>
+                        <td>Dinheiro</td>
+                        <td>0%</td>
+                        <td>2 Smart POS</td>
+                    </tr>
+                    <tr>
+                        <td>Cartão</td>
+                        <td>3,99%</td>
+                        <td>4 Smart POS</td>
+                    </tr>
+                    <tr>
+                        <td>Dinheiro/Cartão</td>
+                        <td>3,99%</td>
+                        <td>Nenhuma</td>
+                    </tr>
+
+                </table>
+                
+                <h3>Procedimentos de cancelamento de Ingressos</h3>
+                <div class="checklist-item">Solicitar autorização do supervisor</div>
+                <div class="checklist-item">Rasurar o Ingresso cancelado impossibilitando o reuso do mesmo (Obs.: Em caso de cancelamento por falha de impressão, ignorar)</div>
+                <div class="checklist-item">Entregar os Ingressos Cancelados ao Responsável da Bilheteria</div>
+            </div>
+            
+            <!-- MÓDULO 3 -->
+            <div class="module">
+                <div class="module-title">MÓDULO 3: VALIDAÇÃO DE INGRESSOS</div>
+                
+                <h3>Tipos de validadores e configuração</h3>
+                <div class="checklist-item"><strong>Portátil:</strong> Modelo COLETOR DE DADOS L2s PRO SUNMI RFID / SMARTPHONE MOTOROLA MOTO G14 4G 128GB</div>
+                <div class="checklist-item"><strong>Fixos:</strong> Modelo (Catraca "Integração com Parceiros Operacionais")</div>
+                
+                <h3>Processos de validação online/offline</h3>
+                <div class="flow-chart">
+                    <strong>ONLINE:</strong> Leitura → Verificação na nuvem → Liberação (0,3s)<br>
+                    <strong>OFFLINE:</strong> Leitura → Checagem local → Registro para sincronização
+                </div>
+                
+                <h3>Tratamento de ingressos com problemas</h3>
+                <ol>
+                    <li>Verificar código manualmente</li>
+                    <li>Consultar no Sistema os dados do Ingresso ou do cliente</li>
+                    <li>Acionar o Técnico Responsável se necessário</li>
+                </ol>
+                
+                <h3>Procedimentos anti-fraude</h3>
+                <div class="checklist-item">Verificar holograma de segurança, bobina no geral</div>
+                <div class="checklist-item">Conferir Evento, setor, data e horário</div>
+                <div class="checklist-item">Observar comportamento do portador</div>
+            </div>
+            
+            <!-- MÓDULO 4 -->
+            <div class="module">
+                <div class="module-title">MÓDULO 4: RELACIONAMENTO COM CLIENTES</div>
+                
+                <h3>Técnicas de comunicação eficaz</h3>
+                <div class="checklist-item">Usar linguagem clara e acessível</div>
+                <div class="checklist-item">Manter contato visual</div>
+                <div class="checklist-item">Repetir informações importantes</div>
+                
+                <div class="example-box">
+                    <strong>Frase Modelo:</strong><br>
+                    "Entendo sua situação, vamos resolver isso agora. Por favor, me mostre seu ingresso enquanto verifico no sistema."
+                </div>
+                
+                <h3>Gestão de conflitos e reclamações</h3>
+                <ol>
+                    <li>Ouvir atentamente</li>
+                    <li>Validar a preocupação</li>
+                    <li>Oferecer solução</li>
+                    <li>Encaminhar se necessário</li>
+                </ol>
+                
+                <h3>Protocolos de atendimento ao cliente</h3>
+                <table>
+                    <tr>
+                        <th>Situação</th>
+                        <th>Ação</th>
+                    </tr>
+                    <tr>
+                        <td>Ingresso não lido</td>
+                        <td>Verificar manualmente e liberar acesso com a autorização do Produtor ou Responsável da Portaria</td>
+                    </tr>
+                    <tr>
+                        <td>Cliente irritado</td>
+                        <td>Se não houver solução por parte da Ticketeira, chamar o Produtor ou Responsável da Portaria</td>
+                    </tr>
+                </table>
+                
+                <h3>Postura profissional em eventos</h3>
+                <div class="checklist-item">Uniforme completo e limpo</div>
+                <div class="checklist-item">Crachá visível</div>
+                <div class="checklist-item">Postura ereta e atenta</div>
+            </div>
+            
+            <div class="important">
+                <strong>PRÁTICAS RECOMENDADAS:</strong>
+                <ul>
+                    <li>Sempre testar todos os equipamentos antes do evento</li>
+                    <li>Manter backup de todos os dispositivos críticos</li>
+                    <li>Documentar todas as ocorrências durante o evento</li>
+                    <li>Comunicar problemas imediatamente ao GTE</li>
+                </ul>
+            </div>
+            
+            <div class="attachments">
+                <strong>DOCUMENTOS RELACIONADOS:</strong><br><br>
+                <a href="https://aglaessio.github.io/feedback_iw/" target="_blank">Relatório técnico Pós-Evento (Preenchimento obrigatório até 24h após o Evento)</a>
+                <a href="https://aglaessio.github.io/ttrc_iw/" target="_blank">Material Completo de Treinamento</a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© <span id="current-year"></span> Ingressos Web - Todos os direitos reservados</p>
+            <button class="print-btn" onclick="window.print()">Imprimir Documento</button>
+        </footer>
+    </div>
+
+    <script>
+        // Set current date and year
+        const now = new Date();
+        document.getElementById('current-date').textContent = now.toLocaleDateString('pt-BR');
+        document.getElementById('current-year').textContent = now.getFullYear();
+    </script>
+</body>
+</html>
